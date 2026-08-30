@@ -226,3 +226,17 @@
     }
 
 }
+
+.agent-card{
+    transition:all .35s ease;
+}
+
+.agent-card:hover{
+    transform:translateY(-6px) scale(1.01);
+
+    border:1px solid rgba(124,92,255,.35);
+
+    box-shadow:
+        0 15px 40px rgba(124,92,255,.18),
+        0 0 20px rgba(124,92,255,.08);
+}
