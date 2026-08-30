@@ -1,0 +1,228 @@
+.agent-panel{
+
+    margin-top:0;
+    height:100%;
+    padding:26px;
+
+    border-radius:22px;
+
+    background:#10131c;          /* Same as right panel */
+
+    border:1px solid #23283a;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.02);
+
+    position:relative;
+    overflow:hidden;
+
+}
+
+.agent-title{
+    font-size:25px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:26px;
+    font-family:"Space Grotesk";
+}
+
+/* ------------------------ */
+
+.agent-card{
+
+    display:flex;
+    align-items:center;
+    gap:20px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    background:#1b2232;
+
+    border-radius:18px;
+
+    border:1px solid transparent;
+
+    transition:.3s ease;
+
+}
+
+.agent-card:nth-child(2){
+    animation-delay:.1s;
+}
+
+.agent-card:nth-child(3){
+    animation-delay:.2s;
+}
+
+.agent-card:nth-child(4){
+    animation-delay:.3s;
+}
+
+.agent-card:nth-child(5){
+    animation-delay:.4s;
+}
+
+/* ------------------------ */
+.agent-card:hover{
+
+    transform:translateY(-3px);
+
+    background:#222b3f;
+
+    border:1px solid rgba(124,92,255,.20);
+
+    box-shadow:
+        0 8px 22px rgba(0,0,0,.25);
+
+}
+/* ------------------------ */
+
+.agent-dot{
+
+    width:16px;
+    height:16px;
+
+    border-radius:50%;
+
+    flex-shrink:0;
+}
+
+/* ------------------------ */
+/* Waiting */
+
+.gray{
+
+    background:#5f6678;
+
+    opacity:.6;
+}
+
+/* ------------------------ */
+/* Running */
+
+.blue{
+
+    background:#5b7cff;
+
+    box-shadow:
+        0 0 12px #5b7cff,
+        0 0 24px rgba(91,124,255,.6);
+
+    animation:runningPulse 1.4s infinite;
+}
+
+/* ------------------------ */
+/* Completed */
+
+.green{
+
+    background:#00d46a;
+
+    box-shadow:
+        0 0 12px #00d46a,
+        0 0 24px rgba(0,212,106,.6);
+
+    animation:completedGlow 2s infinite;
+}
+
+/* ------------------------ */
+
+.agent-info{
+
+    display:flex;
+    flex-direction:column;
+}
+
+.agent-info strong{
+
+    color:white;
+
+    font-size:18px;
+
+    font-family:"Space Grotesk";
+
+    font-weight:700;
+}
+
+.agent-info span{
+
+    color:#9ca3af;
+
+    margin-top:6px;
+ font-family:"Space Grotesk";
+    font-size:15px;
+}
+
+/* ------------------------ */
+
+@keyframes runningPulse{
+
+    0%{
+
+        transform:scale(1);
+
+        box-shadow:
+        0 0 10px #5b7cff;
+    }
+
+    50%{
+
+        transform:scale(1.45);
+
+        box-shadow:
+        0 0 24px #5b7cff;
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        box-shadow:
+        0 0 10px #5b7cff;
+    }
+
+}
+
+/* ------------------------ */
+
+@keyframes completedGlow{
+
+    0%{
+
+        transform:scale(1);
+    }
+
+    50%{
+
+        transform:scale(1.18);
+    }
+
+    100%{
+
+        transform:scale(1);
+    }
+
+}
+
+/* ------------------------ */
+
+@keyframes fadeSlide{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(18px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+
+}

@@ -1,0 +1,130 @@
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    padding-bottom:35px;
+
+    margin-bottom:40px;
+
+    border-bottom:
+
+        1px solid rgba(255,255,255,.05);
+
+}
+
+.eyebrow{
+
+    color:#7b61ff;
+
+    font-size:12px;
+    font-family:"Space Grotesk";
+
+    letter-spacing:4px;
+
+    margin-bottom:15px;
+
+    font-weight:600;
+
+}
+
+.topbar h1{
+
+    font-size:58px;
+
+    font-weight:900;
+
+    letter-spacing:-3px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            white,
+            #d8dcff
+        );
+ background-clip:text;          /* Add this */
+    -webkit-background-clip:text;
+
+    color:transparent;             /* Add this */
+    -webkit-text-fill-color:transparent;
+}
+
+.topbar p{
+
+    margin-top:18px;
+
+    width:520px;
+
+    color:#8b91a5;
+
+    line-height:1.7;
+
+    font-size:18px;
+    font-family:"Space Grotesk";
+
+}
+
+.agent-pill{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:16px 28px;
+
+    border-radius:999px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #102116,
+            #0d1912
+        );
+
+    border:1px solid rgba(44,227,111,.18);
+
+    box-shadow:
+
+        0 0 25px rgba(44,227,111,.08);
+
+}
+
+.pulse{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#2ce36f;
+
+    box-shadow:0 0 15px #2ce36f;
+
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(.8);
+opacity:.7;
+}
+
+50%{
+transform:scale(1.2);
+opacity:1;
+}
+
+100%{
+transform:scale(.8);
+opacity:.7;
+}
+}

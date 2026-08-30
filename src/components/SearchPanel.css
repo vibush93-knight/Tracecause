@@ -1,0 +1,131 @@
+.search-panel{
+
+    width:100%;
+
+    margin:20px 0 50px;
+
+}
+
+.search-title{
+
+    text-align:center;
+
+    color:#7b61ff;
+
+    letter-spacing:4px;
+
+    font-size:14px;
+    font-family:"Space Grotesk";
+
+    margin-bottom:22px;
+
+}
+
+.search-wrapper{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.search-wrapper input{
+
+    flex:1;
+
+    height:60px;
+
+    background:#10131d;
+
+    border:2px solid #2d3450;
+
+    border-radius:18px;
+
+    color:white;
+
+    font-size:17px;
+    font-family:"Space Grotesk";
+
+    padding:0 28px;
+
+    transition:.3s;
+    
+    font-weight:500;
+
+}
+
+.search-wrapper input::placeholder{
+
+   color:#6b7280;
+   font-family:"Space Grotesk";
+
+}
+
+.search-wrapper input:focus{
+
+    outline:none;
+
+    border-color:#7b61ff;
+
+    box-shadow:
+        0 0 0 2px rgba(123,97,255,.25),
+        0 0 40px rgba(123,97,255,.15);
+
+}
+
+.search-wrapper button{
+
+    width:250px;
+
+    height:72px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:linear-gradient(
+        135deg,
+        #6e49ff,
+        #8d6cff
+    );
+
+    color:white;
+
+    font-size:20px;
+    font-family:"Space Grotesk";
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:
+        0 15px 35px rgba(111,73,255,.35);
+
+}
+
+.search-wrapper button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 20px 45px rgba(111,73,255,.45);
+
+}
+
+.search-panel p{
+
+    margin-top:18px;
+
+    text-align:center;
+
+    color:#8b91a5;
+
+    font-size:18px;
+    font-family:"Space Grotesk";
+
+}
+

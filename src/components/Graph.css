@@ -1,0 +1,1062 @@
+/* ==========================================================
+   TRACECAUSE GRAPH
+   PART 2A
+========================================================== */
+.graph-container{
+
+    width:100%;
+
+    max-width:1350px;
+
+    margin:30px auto;
+
+    overflow:hidden;
+
+    border-radius:26px;
+
+    background:#0c1019;
+
+    border:1px solid #262d40;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.45);
+
+}
+
+/* ------------------------------------------------------ */
+
+.graph-header{
+
+    height:90px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 36px;
+
+    border-bottom:1px solid #1f2435;
+
+    background:#0e1220;
+
+}
+
+.graph-header h2{
+
+    font-family:"Space Grotesk";
+
+    font-size:30px;
+
+    font-weight:700;
+
+    letter-spacing:-1px;
+
+}
+
+.small-title{
+
+    color:#7b61ff;
+
+    letter-spacing:3px;
+
+    font-size:12px;
+    font-family:"Space Grotesk";
+
+}
+
+.confidence{
+
+    color:#9ca7c2;
+    font-family:"Space Grotesk";
+
+}
+
+.confidence span{
+
+    color:#46ff9c;
+  font-family:"Space Grotesk";
+    font-weight:700;
+
+}
+/* ------------------------------------------------------ */
+
+.graph{
+
+    position:relative;
+
+    width:100%;
+
+    min-width:0;
+
+    min-height:820px;
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(260px,30%)
+        minmax(340px,42%)
+        minmax(220px,28%);
+
+    column-gap:50px;
+
+    padding:40px;
+
+    overflow:hidden;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.03) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.03) 1px,
+            transparent 1px
+        );
+
+    background-size:55px 55px;
+}
+
+/* GRID */
+
+.graph::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+    linear-gradient(
+    rgba(255,255,255,.03) 1px,
+    transparent 1px),
+
+    linear-gradient(
+    90deg,
+    rgba(255,255,255,.03) 1px,
+    transparent 1px);
+
+    background-size:
+
+    55px 55px;
+
+    opacity:.35;
+
+    pointer-events:none;
+}
+
+/* Purple Glow */
+
+.graph::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:-160px;
+
+    top:120px;
+
+    width:650px;
+
+    height:650px;
+
+    background:
+
+    radial-gradient(
+
+    rgba(117,84,255,.18),
+
+    transparent 70%);
+
+    filter:blur(45px);
+
+    pointer-events:none;
+}
+
+/* ------------------------------------------------------ */
+
+.causes-column{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    z-index:5;
+
+}
+
+.responses-column{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-evenly;
+
+    z-index:5;
+
+}
+
+.outcome-column{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* ------------------------------------------------------ */
+/* NODE BASE */
+/* ------------------------------------------------------ */
+.cause-node,
+.response-node{
+
+    position: relative;
+    overflow: hidden;
+
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    padding:22px;
+
+    min-height:100px;
+
+    border-radius:18px;
+
+    background:linear-gradient(
+        135deg,
+        #181d2b,
+        #111522
+    );
+
+    border:1px solid #313b56;
+
+    transition:.3s;
+
+    cursor:pointer;
+
+}
+/* Glow strip */
+
+.cause-node::before,
+.response-node::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-100%;
+
+    width:120%;
+
+    height:2px;
+
+    background:
+
+    linear-gradient(
+    90deg,
+
+    transparent,
+
+    #8b5dff,
+
+    transparent);
+
+    transition:.45s;
+}
+
+.cause-node:hover::before,
+.response-node:hover::before{
+
+    left:100%;
+}
+
+.cause-node:hover,
+.response-node:hover{
+
+    transform: translateY(-6px) scale(1.03);
+
+    border-color:#7b61ff;
+
+    box-shadow:
+        0 20px 50px rgba(123,97,255,.25);
+}
+/* ------------------------------------------------------ */
+
+.node-icon{
+
+    width:56px;
+
+    height:56px;
+
+    border-radius:14px;
+
+    background:#1d2340;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:24px;
+
+    color:#9d84ff;
+
+}
+
+.response-node .node-icon{
+
+    color:#bb96ff;
+
+    background:
+
+    linear-gradient(
+
+    135deg,
+
+    rgba(175,112,255,.35),
+
+    rgba(78,36,138,.65));
+}
+
+.cause-node strong,
+.response-node strong{
+
+    display:block;
+
+    color:white;
+
+    font-size:19px;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+}
+
+.cause-node small,
+.response-node small{
+
+    color:#8f95a8;
+
+    font-size:14px;
+
+    line-height:1.5;
+}
+
+/* ==========================================================
+   PART 2B
+   OUTCOME + SVG CONNECTIONS + ANIMATIONS
+==========================================================*/
+
+/* ---------- SVG CONNECTIONS ---------- */
+
+.connections{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    overflow:visible;
+
+}
+
+.connections path{
+
+    fill:none;
+
+    stroke:#7b5cff;
+
+    stroke-width:3;
+
+    stroke-linecap:round;
+
+    stroke-dasharray:10 12;
+
+    filter:drop-shadow(0 0 8px rgba(123,92,255,.6));
+
+    animation:flow 8s linear infinite;
+
+}
+
+.connections circle{
+
+    fill:#9f86ff;
+
+    filter:
+        drop-shadow(0 0 14px rgba(159,134,255,.9));
+
+    animation:pulseNode 2s infinite;
+}
+
+/* ---------- OUTCOME ---------- */
+
+.outcome-wrapper{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+}
+
+/* outer glow */
+
+.outcome-glow{
+
+    position:absolute;
+
+    width:340px;
+
+    height:340px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            rgba(255,168,60,.25),
+            transparent 70%);
+
+    filter:blur(35px);
+
+    animation:glowPulse 4s ease-in-out infinite;
+}
+
+/* outcome ring */
+
+.outcome-ring{
+
+    position:relative;
+
+    width:210px;
+
+    height:210px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    border:3px solid #ffb238;
+
+    background:
+        radial-gradient(
+            circle,
+            #221707,
+            #0d0d12 70%);
+
+    box-shadow:
+        0 0 25px rgba(255,177,55,.35),
+        0 0 60px rgba(255,177,55,.20);
+
+    animation:ringFloat 4s ease-in-out infinite;
+}
+
+.outcome-ring::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-18px;
+
+    border-radius:50%;
+
+    border:2px solid rgba(255,180,70,.18);
+}
+
+.outcome-ring::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-36px;
+
+    border-radius:50%;
+
+    border:2px solid rgba(255,180,70,.08);
+}
+
+.outcome-ring small{
+
+    color:#ffb84c;
+
+    font-size:12px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:14px;
+
+    font-weight:700;
+}
+
+.outcome-ring strong{
+
+    color:white;
+
+    font-size:24px;
+
+    line-height:1.45;
+
+    font-weight:700;
+}
+
+/* ---------- NODE COLORS ---------- */
+
+.response-node{
+
+    border-color:rgba(132,95,255,.22);
+
+    background:
+        linear-gradient(
+            135deg,
+            #22153d,
+            #11121c);
+}
+
+.cause-node{
+
+    background:
+        linear-gradient(
+            135deg,
+            #151924,
+            #0b0d15);
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes pulseNode{
+
+    0%{
+
+        transform:scale(1);
+
+        opacity:.8;
+    }
+
+    50%{
+
+        transform:scale(1.35);
+
+        opacity:1;
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:.8;
+    }
+}
+
+@keyframes glowPulse{
+
+    0%{
+
+        transform:scale(.95);
+
+        opacity:.55;
+    }
+
+    50%{
+
+        transform:scale(1.05);
+
+        opacity:1;
+    }
+
+    100%{
+
+        transform:scale(.95);
+
+        opacity:.55;
+    }
+}
+
+@keyframes ringFloat{
+
+    0%{
+
+        transform:translateY(0px);
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+    }
+
+    100%{
+
+        transform:translateY(0px);
+    }
+}
+
+@keyframes flow{
+
+    0%{
+
+        stroke-dasharray:8 16;
+
+        stroke-dashoffset:0;
+    }
+
+    100%{
+
+        stroke-dasharray:8 16;
+
+        stroke-dashoffset:-160;
+    }
+}
+
+/* ---------- SCROLLBAR ---------- */
+
+.graph::-webkit-scrollbar{
+
+    width:10px;
+}
+
+.graph::-webkit-scrollbar-thumb{
+
+    background:#5d47d8;
+
+    border-radius:20px;
+}
+
+.graph::-webkit-scrollbar-track{
+
+    background:#10131d;
+}
+
+/* ==========================================================
+   PART 2C
+   RESPONSIVE + FINAL POLISH
+==========================================================*/
+
+/* ---------- Hover Effects ---------- */
+
+.cause-node:hover,
+.response-node:hover{
+
+    transform: translateY(-6px) scale(1.03);
+
+    border-color:#7b61ff;
+
+    box-shadow:
+        0 20px 50px rgba(123,97,255,.25);
+}
+
+.outcome-ring:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:
+        0 0 35px rgba(255,180,70,.45),
+        0 0 80px rgba(255,180,70,.25);
+}
+
+/* ---------- Glass Header ---------- */
+
+.graph-header{
+
+    backdrop-filter:blur(14px);
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(17,18,27,.85),
+            rgba(10,10,16,.90));
+}
+
+/* ---------- Premium Scroll ---------- */
+
+.graph{
+
+    scrollbar-color:#7d5fff #10131d;
+    scrollbar-width:thin;
+}
+
+/* ---------- Mobile ---------- */
+
+@media(max-width:1400px){
+
+    .graph{
+
+        grid-template-columns:
+
+            340px
+
+            420px
+
+            250px;
+
+        gap:70px;
+
+        padding:50px;
+    }
+
+}
+
+@media(max-width:1200px){
+
+    .graph{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:40px;
+
+        min-height:auto;
+    }
+
+    .connections{
+
+        display:none;
+    }
+
+    .causes-column,
+    .responses-column{
+
+        width:100%;
+    }
+
+    .outcome-wrapper{
+
+        margin:40px auto;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .graph{
+
+        padding:25px;
+    }
+
+    .cause-node,
+    .response-node{
+
+        min-height:90px;
+    }
+
+    .node-icon{
+
+        width:52px;
+        height:52px;
+        font-size:24px;
+    }
+
+    .cause-node strong,
+    .response-node strong{
+
+        font-size:18px;
+    }
+
+    .cause-node small,
+    .response-node small{
+
+        font-size:13px;
+    }
+
+    .outcome-ring{
+
+        width:170px;
+        height:170px;
+    }
+
+}
+
+/* ---------- Entrance Animations ---------- */
+
+.cause-node{
+
+    animation:slideLeft .8s ease both;
+}
+
+.response-node{
+
+    animation:slideRight .8s ease both;
+}
+
+.outcome-wrapper{
+
+    animation:fadeIn 1.2s ease both;
+}
+
+.cause-node:nth-child(2){animation-delay:.08s;}
+.cause-node:nth-child(3){animation-delay:.16s;}
+.cause-node:nth-child(4){animation-delay:.24s;}
+.cause-node:nth-child(5){animation-delay:.32s;}
+.cause-node:nth-child(6){animation-delay:.40s;}
+
+.response-node:nth-child(2){animation-delay:.10s;}
+.response-node:nth-child(3){animation-delay:.20s;}
+.response-node:nth-child(4){animation-delay:.30s;}
+
+@keyframes slideLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateX(-60px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateX(0);
+    }
+
+}
+
+@keyframes slideRight{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateX(60px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateX(0);
+    }
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.8);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+    }
+
+}
+@keyframes flow{
+
+    from{
+        stroke-dashoffset:0;
+    }
+
+    to{
+        stroke-dashoffset:-200;
+    }
+
+}
+
+.merge-dot{
+
+    fill:#9d7cff;
+
+    filter:drop-shadow(0 0 12px #9d7cff);
+
+    animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.4);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+/* ---------- Final Glow ---------- */
+
+.graph::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+
+        radial-gradient(circle at 20% 30%,
+        rgba(110,85,255,.08),
+        transparent 35%),
+
+        radial-gradient(circle at 80% 70%,
+        rgba(255,170,60,.08),
+        transparent 30%);
+
+}
+
+.node-content h3{
+
+    margin:0;
+
+    color:white;
+
+    font-size:22px;
+
+}
+
+.node-content p{
+
+    margin-top:8px;
+
+    color:#9aa4bb;
+
+    font-size:15px;
+
+}
+.main{
+
+    flex:1;
+
+    min-width:0;
+
+    overflow-x:hidden;
+
+    padding:40px;
+
+}
+
+
+/* ===========================
+   Floating Details Drawer
+=========================== */
+
+.graph-container{
+    position:relative;
+    overflow:hidden;
+}
+
+.node-details{
+
+    position:absolute;
+
+    top:90px;
+    right:25px;
+
+    width:360px;
+    height:calc(100% - 120px);
+
+    background:rgba(17,22,33,.92);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:22px;
+
+    padding:28px;
+
+    z-index:50;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.55);
+
+    animation:drawer .35s ease;
+}
+
+@keyframes drawer{
+
+    from{
+
+        opacity:0;
+        transform:translateX(60px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateX(0);
+
+    }
+
+}
+
+
+.cause-node,
+.response-node{
+
+    transition:
+        transform .25s,
+        box-shadow .25s,
+        border-color .25s;
+
+}
+
+.cause-node:hover,
+.response-node:hover{
+
+    transform:
+        translateY(-6px)
+        scale(1.03);
+
+    border-color:#8d73ff;
+
+    box-shadow:
+        0 0 30px rgba(124,92,255,.45);
+
+}
+
+
+.cause-node:active,
+.response-node:active{
+
+    transform:scale(.97);
+
+}

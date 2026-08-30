@@ -1,0 +1,331 @@
+/* ==========================================
+   Section
+========================================== */
+
+.factors{
+
+    margin-top:50px;
+
+}
+
+.factors h2{
+
+    margin:0 0 28px;
+
+    color:white;
+
+    font-size:34px;
+
+    font-weight:800;
+
+    letter-spacing:-0.5px;
+
+}
+
+/* ==========================================
+   Grid
+========================================== */
+
+.factor-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:24px;
+
+}
+
+/* ==========================================
+   Card
+========================================== */
+
+.factor-card{
+
+    background:#151d31;
+
+    border-radius:20px;
+
+    padding:22px;
+
+    border:1px solid rgba(124,92,255,.15);
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    min-height:240px;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.factor-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#7c5cff;
+
+    box-shadow:
+
+        0 18px 40px rgba(0,0,0,.28),
+
+        0 0 0 1px rgba(124,92,255,.25);
+
+}
+
+/* glowing corner */
+
+.factor-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:140px;
+
+    height:140px;
+
+    background:radial-gradient(
+
+        rgba(124,92,255,.18),
+
+        transparent 70%
+
+    );
+
+    right:-70px;
+
+    top:-70px;
+
+    pointer-events:none;
+
+}
+
+/* ==========================================
+   Top Row
+========================================== */
+
+.factor-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+/* ==========================================
+   Number
+========================================== */
+
+.factor-number{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+
+        135deg,
+
+        #7c5cff,
+
+        #5f77ff
+
+    );
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-weight:700;
+
+    font-size:16px;
+
+    flex-shrink:0;
+
+}
+
+/* ==========================================
+   Type Badge
+========================================== */
+
+.factor-type{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:7px 14px;
+
+    border-radius:999px;
+
+    background:rgba(124,92,255,.12);
+
+    color:#9f95ff;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+}
+
+/* ==========================================
+   Title
+========================================== */
+
+.factor-card h3{
+
+    margin:0 0 16px;
+
+    color:white;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    line-height:1.35;
+
+}
+
+/* ==========================================
+   Description
+========================================== */
+
+.factor-description{
+
+    color:#cfd5e2;
+
+    line-height:1.75;
+
+    font-size:15px;
+
+    flex:1;
+
+}
+
+/* ==========================================
+   Bottom Area
+========================================== */
+
+.factor-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:22px;
+
+    padding-top:18px;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+}
+
+/* ==========================================
+   Learn More
+========================================== */
+
+.factor-link{
+
+    color:#7cc4ff;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.factor-arrow{
+
+    color:#7c5cff;
+
+    font-size:20px;
+
+    transition:.25s;
+
+}
+
+.factor-card:hover .factor-arrow{
+
+    transform:translateX(5px);
+
+}
+
+/* ==========================================
+   Active Card
+========================================== */
+
+.factor-card.active{
+
+    border-color:#00d4ff;
+
+    box-shadow:
+
+        0 0 0 1px #00d4ff,
+
+        0 15px 40px rgba(0,212,255,.18);
+
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:900px){
+
+.factor-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.factor-card{
+
+    min-height:auto;
+
+}
+
+.factor-card h3{
+
+    font-size:20px;
+
+}
+
+.factor-description{
+
+    font-size:14px;
+
+}
+
+}
