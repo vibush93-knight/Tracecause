@@ -5,18 +5,13 @@ box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    background:
-        radial-gradient(circle at top left,#6f48ff22,transparent 30%),
-        radial-gradient(circle at top right,#00d4ff11,transparent 25%),
-        linear-gradient(
-            180deg,
-            #07090f 0%,
-            #0a0d15 45%,
-            #090c14 100%
-        );
 
-    color:white;
+background:
+radial-gradient(circle at top left,#302860 0%,transparent 35%),
+radial-gradient(circle at bottom right,#1a2747 0%,transparent 40%),
+#090b13;
+
+color:white;
 }
 
 .app {
