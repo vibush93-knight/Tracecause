@@ -40,4 +40,9 @@ TraceCause uses TrueForge agents to investigate an outcome by assigning tasks to
 ## Qodo Code Review Evidence
 
 Representative PR:
-(Add your Pull Request link here)
+## Qodo Code Review Evidence
+
+This project was reviewed using Qodo Code Review.
+
+Representative merged Pull Request:
+https://github.com/vibush93-knight/Tracecause/pull/1
